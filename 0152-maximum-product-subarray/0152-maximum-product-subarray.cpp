@@ -1,38 +1,31 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-    int size = nums.size();
-    int prod = 1, left = 0, right = 0;
-    int largest = INT_MIN;
+        double size = nums.size();
+        double prod = 1;
+        double maximum = INT_MIN;
+        double count = 0;
 
-    for(int i = 0; i < size; i++)
-    {
-        prod = prod * nums[i];
-        if(prod >= largest)
-        {
-            largest = prod;
-        }
-        if(prod == 0)
-        {
-            prod = 1;
-        }
-    }
+        for(int i = 0; i < size; i++) {
+            prod *= nums[i];
+            maximum = max(maximum, prod);
 
-    prod = 1;
-
-    for(int i = size-1; i >= 0;i--)
-    {
-        prod = prod * nums[i];
-        if(prod >= largest)
-        {
-            largest = prod;
+            if(prod == 0){
+                prod = 1;
+            }
         }
-        if(prod == 0)
-        {
-            prod = 1;
-        }
-    }
 
-    return largest;
+        prod = 1;
+
+        for(int i = size-1; i >= 0; i--) {
+            prod *= nums[i];
+            maximum = max(maximum, prod);
+
+            if(prod == 0) {
+                prod = 1;
+            }
+        }
+        
+        return maximum;   
     }
 };
