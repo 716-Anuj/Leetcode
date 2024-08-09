@@ -1,25 +1,24 @@
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
-        int row = matrix.size();
+        int row_size = matrix.size();
+        int col_size = matrix[0].size();
 
+        vector<vector<int>> new_matrix(row_size, vector<int>(row_size, 0));
 
-        vector<vector<int>>matrix1(row , vector<int>(row, 0));
-
-        for(int i = 0; i < row; i++)
-        {
-            for(int j = row-1; j >= 0; j--)
-            {
-                matrix1[i][row - 1 - j] = matrix[j][i];
+        for(int i = 0; i < row_size; i++) {
+            int size = row_size-1;
+            for(int j = 0; j < col_size; j++) {
+                new_matrix[i][j] = matrix[size][i];
+                size--;
             }
         }
 
-        for(int i = 0; i < row; i++)
-        {
-            for(int j = 0; j < row; j++)
-            {
-                matrix[i][j] = matrix1[i][j];
+        for(int i = 0; i < row_size; i++) {
+            for(int j = 0; j < col_size; j++) {
+                matrix[i][j] = new_matrix[i][j];
             }
         }
+        
     }
 };
