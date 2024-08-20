@@ -12,31 +12,30 @@
 class Solution {
 public:
 
-    bool check(TreeNode* l, TreeNode* r){
-        if(r == NULL && l == NULL){
+   bool symmetric(TreeNode* left1, TreeNode* right1) {
+        if(left1 == nullptr && right1 == nullptr) {
             return true;
         }
-        if(r == NULL || l == NULL){
+        if(left1 == nullptr || right1 == nullptr) {
             return false;
         }
-        if(r->val != l->val){
+        if(left1->val != right1->val) {
             return false;
         }
-        bool res1 = check(l->left, r->right);
-        bool res2 = check(r->left, l->right);
 
-        if(res1 == true && res2 == true){
+        bool left2 = symmetric(left1->left, right1->right);
+        bool right2 = symmetric(left1->right, right1->left);
+
+        if(left2 == true && right2 == true) {
             return true;
-        }else{
-            return false;
-        }
-    }
+        } 
+        return false;
+   }
 
     bool isSymmetric(TreeNode* root) {
-        if(root == NULL){
+        if(root == NULL) {
             return true;
         }
-        bool result = check(root->left, root->right);
-        return result;
+        return symmetric(root->left, root->right);
     }
 };
