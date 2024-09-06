@@ -11,26 +11,30 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        unordered_set<int> s(nums.begin(), nums.end());
+        unordered_set<int>mp(nums.begin(), nums.end());
 
-        ListNode* newHead = new ListNode(0);
-        newHead->next = head;
-        ListNode* prev = newHead;
-        ListNode* current = head;
+        ListNode* ptr = head;
+        ListNode* prev = NULL;
 
-        while(current != NULL) {
-        if(s.find(current->val) != s.end()) {
-            prev->next = current->next;
-            delete current;
-            current = prev->next;
+        while(ptr != NULL) {
+            if(mp.find(ptr->val) != mp.end()) {
+
+                if(head == ptr) {
+                    head = ptr->next;
+                    delete ptr;
+                    ptr = head;
+                }
+                else {
+                    prev->next = ptr->next;
+                    delete ptr;
+                    ptr = prev->next;
+                }
+            }
+            else {
+                prev = ptr;
+                ptr = ptr->next;
+            }
         }
-        else {
-            prev = current;
-            current = current->next;
-        }
-        }
-        ListNode* ans = newHead->next;
-        delete newHead;
-        return ans;
+        return head;
     }
 };
